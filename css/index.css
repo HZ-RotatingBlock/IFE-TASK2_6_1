@@ -1,0 +1,247 @@
+*{
+	margin:0;
+	padding:0;
+	font-size:14px;
+	font-family:"Microsoft YaHei";
+	list-style:none;
+	color:#000;
+}
+body{
+	font-size:12px;
+	font-family:"Microsoft YaHei";
+	background-color:#fff;
+	overflow-x:hidden;
+}
+a{
+	color:#000;
+	text-decoration:none;
+}
+/*显示列表部分*/
+.content{
+	position:absolute;
+	top:0;
+	left:50%;
+	transform:translateX(-50%);
+	-webkit-transform:translateX(-50%);
+	-o-transform:translateX(-50%);
+	width:200%;
+	height:auto;
+}
+ul.content_ul{
+	position:absolute;
+	top:20px;
+	left:50%;
+	transform:translateX(-50%);
+	-webkit-transform:translateX(-50%);
+	width:auto;
+	height:135px;
+	text-align:center;
+}
+li.content_list{
+	display:inline-block;
+	float:left;
+	position:relative;
+	margin-top:35px;
+	margin-right:5px;
+	width:100px;
+	height:100px;
+	font-size:15px;
+	font-weight:700;
+	line-height:100px;
+	text-align:center;
+	color:#1abc9c;
+	background-color:#434A54;
+	border:1px solid #1abc9c;
+	transition:all 0.5s;
+	cursor:pointer;
+}
+li.content_list:hover{
+	transform:scale(1.2);
+}
+/*数字输入部分*/
+.input{
+	display:block;
+	position:absolute;
+	top:300px;
+	left:50%;
+	transform:translateX(-50%);
+	width:50%;
+	height:50px;
+	background-color:#434A54;
+	border-radius:5px;
+}
+.input:hover,.search_frame:hover{
+	animation:input_hover 0.9s forwards;
+	animation-iteration-count: infinite;
+	animation-direction:alternate;	
+}
+.input:hover span.line_left{
+	width:200px;
+	transform:scale(0.5);
+}
+.input:hover span.line_right{
+	width:200px;
+	transform:scale(0.5);
+}
+@keyframes input_hover{
+	0{box-shadow:0px 0px 00px #1abc9c;}
+	100%{box-shadow:0px 0px 15px #1abc9c;}
+}
+.l_line,.r_line{
+	display:block;
+	position:absolute;
+	top:-42px;
+	left:50%;
+	width:235px;
+	height:20px;
+	backround-color:#000;
+}
+span.line_left,span.line_right{
+	display:block;
+	position:absolute;
+	width:15px;
+	height:15px;
+	background-color:#434A54;
+	border-radius:10px;
+	transition:all 1s;
+}
+.l_line{
+	transform:translateX(-50%);
+}
+span.line_left{
+	right:220px;
+	transform:rotateZ(180deg);
+}
+.r_line{
+	transform:translateX(-50%);
+}
+span.line_right{
+	left:220px;
+	transform:rotateZ(-180deg);
+}
+#prompt{
+	position:absolute;
+	bottom:-110%;
+	left:50%;
+	transform:translateX(-45%);
+	padidng:0 20px;
+	height:50px;
+	font-size:20px;
+	font-weight:700;
+	line-height:50px;
+	text-align:center;
+	color:#434A54;
+}
+h3.input_title{
+	position:absolute;
+	top:-60px;
+	left:50%;
+	transform:translateX(-50%);
+	font-size:25px;
+	font-weight:700;
+	line-height:50px;
+	color:#434A54;
+}
+#input_add{
+	display:inline-block;
+	position:absolute;
+	top:5px;
+	left:50%;
+	transform:translateX(-50%);
+	width:98%;
+	height:40px;
+	font-size:25px;
+	line-height:40px;
+	text-align:center;
+	background-color:#fff;
+	border:none;
+	border-radius:3px;
+	outline:none;
+}
+
+/*指令选择部分*/
+ul.control{
+	position:absolute;
+	top:420px;
+	left:50%;
+	width:80%;
+	height:50px;
+	transform:translateX(-50%);
+	-webkit-transform:translateX(-50%);
+	-o-transform:translateX(-50%);
+}
+li.control_list{
+	float:left;
+	margin:0 auto;
+	margin-right:calc(4% / 3);
+	width:24%;
+	height:50px;
+	font-size:25px;
+	font-weight:700;
+	line-height:50px;
+	text-align:center;
+	color:#fff;
+	background-color:#434A54;
+	border-radius:5px;
+	transition:all 0.5s;
+	cursor:pointer;
+}
+li.control_list:last-child{
+	margin-right:0;
+}
+li.control_list:hover,li.content_list:hover,
+.search_button:hover{
+	box-shadow:5px 5px 10px #434A54;
+}
+.button_clickchange{
+	animation:button_click 0.4s forwards;
+	animation-direction:alternate;
+}
+@keyframes button_click{
+	0% {transform:scale(1);}
+	50% {transform:scale(0.9);}
+	75% {transform:scale(1.1);}
+	100% {transform:scale(1);}
+}
+/*查询输入部分*/
+.search_frame{
+	display:block;
+	position:absolute;
+	top:520px;
+	left:50%;
+	transform:translateX(-50%);
+	width:50%;
+	height:50px;
+	background-color:#434A54;
+	border-radius:5px;
+}
+input.search_input{
+	display:inline-block;
+	position:absolute;
+	top:5px;
+	left:50%;
+	transform:translateX(-50%);
+	width:98%;
+	height:40px;
+	font-size:25px;
+	line-height:40px;
+	text-align:center;
+	background-color:#fff;
+	border:none;
+	border-radius:3px;
+	outline:none;
+}
+.search_button{
+	margin:610px auto 10px;
+	width:24%;
+	height:50px;
+	font-size:25px;
+	font-weight:700;
+	line-height:50px;
+	text-align:center;
+	color:#fff;
+	background-color:#434A54;
+	border-radius:5px;
+	transition:all 0.5s;
+	cursor:pointer;
+}
