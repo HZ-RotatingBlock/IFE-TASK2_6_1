@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>IFE:javascript 任务六：基础JavaScript练习（三）</title>
+	</head>
+	<link rel="stylesheet" href="css/index.css">
+	<body>
+		<!--数字输入部分-->
+		<div class="content">
+			<ul class="content_ul">
+				<li class="content_list">90</li>
+				<li class="content_list">52</li>
+				<li class="content_list">53</li>
+				<li class="content_list">24</li>		
+			</ul>
+		</div>
+		<!--数字输入部分-->
+		<div class="input">
+			<div class="l_line">
+				<span class="line_left"></span>
+			</div>
+			<div class="r_line">
+				<span class="line_right"></span>
+			</div>			
+			<h3 class="input_title">请开始你的表演</h3>
+			<textarea type="text" name="input_add" id="input_add" placeholder="输入范围10-100的数字，队列元素最多60个"/></textarea><span id="prompt">请输任意数字、中文或英文！</span>
+		</div>				
+		<!--指令选择部分-->
+		<ul class="control">			
+			<li class="control_list">左侧入</li>
+			<li class="control_list">右侧入</li>
+			<li class="control_list">左侧出</li>
+			<li class="control_list">右侧出</li>
+		</ul>
+		<!--查询输入部分开始-->
+		<div class="search_frame">
+			<input type="text" name="search_input" class="search_input" placeholder="请输入查询词"/>
+		</div>
+		<div class="search_button">开始查询</div>
+		<!--查询输入部分结束-->
+	</body>
+	<script type="text/javascript">
+	
+		window.onload = function(){
+			//获取显示列表
+			var ul_list = document.getElementsByClassName("content_ul")[0];
+			var li_list = document.getElementsByClassName("content_list");
+			//获取显示列表的长度		
+			var content_list_length = li_list.length;
+			//获取输入框内容
+			var input_value = document.getElementById("input_add");
+			//获取操作按钮
+			var leftIn = document.getElementsByClassName("control_list")[0];//左侧入
+			var rightIn = document.getElementsByClassName("control_list")[1];//右侧入
+			var leftOut = document.getElementsByClassName("control_list")[2];//左侧出
+			var rightOut = document.getElementsByClassName("control_list")[3];	//右侧出
+			//获取提示信息
+			var span_content = document.getElementById("prompt");
+			//实时监控输入框
+			input_value.addEventListener("input", myFunction);
+			 function myFunction (event) {
+				if(event.target.value >= 10&&event.target.value <= 100){
+					span_content.innerHTML = "验证通过！";
+				}else{
+					span_content.innerHTML = "请输任意数字、中文或英文！";
+				}
+			}		
+			//左侧入
+			leftIn.onclick = function(){
+				//实时获取输入框的值并转化为数字		
+				var input_content = Number(input_value.value);
+				//获取输入框内容长度
+				if(input_content >= 10&&input_content <= 100){
+					//判断若输入内容不为空且输入转换后的类型为数字同时不为NaN时执行下面的函数
+					if(input_content != ""&&typeof(input_content) == 'number'&&!isNaN(input_content)){
+						//队列元素数量最多限制为60个，当超过60个时，添加元素时alert出提示
+						if(document.getElementsByClassName("content_list").length <= 60){
+							var new_item = document.createElement("li");
+							new_item.className = "content_list";
+							new_item.innerHTML = input_content + "<span class='content_list_num'></span>";
+							ul_list.insertBefore(new_item,ul_list.childNodes[0]);
+							//将输入的值对应高度比例显示
+							ul_list.childNodes[0].children[0].style.height = input_content + "%";
+							//input_value.value = "";//清空输入框							
+						}else{
+							alert("最多60个，不能再多了！");
+							input_value.value = "";//清空输入框
+						}											
+					}else if(isNaN(input_content)){
+						alert("不输入数字我就爆炸了！");
+						input_value.value = "";
+					}else if(input_content == ""){
+						alert("输入点数字吧！");
+					}
+				}else{
+					//二次验证
+					alert("请输任意数字、中文或英文！");
+				}
+				//提示信息内容复位
+				//span_content.innerHTML = "请输入10-100之间的数字！";				
+			}
+			//右侧入
+			rightIn.onclick = function(){
+				//实时获取输入框的值并转化为数字		
+				var input_content = Number(input_value.value);
+				//获取输入框内容长度
+				if(input_content >= 10&&input_content <= 100){
+					//判断若输入内容不为空且输入转换后的类型为数字同时不为NaN时执行下面的函数
+					if(input_content != ""&&typeof(input_content) == 'number'&&!isNaN(input_content)){
+						//队列元素数量最多限制为60个，当超过60个时，添加元素时alert出提示					
+						if(document.getElementsByClassName("content_list").length <= 60){
+							ul_list.innerHTML += "<li class='content_list'>" + input_content + "<span class='content_list_num'></span></li>";
+							//将输入的值对应高度比例显示
+							ul_list.lastChild.lastChild.style.height = input_content + "%";
+							//input_value.value = "";							
+						}else{
+							alert("最多60个，不能再多了！");
+							input_value.value = "";//清空输入框
+						}
+						
+					}else if(isNaN(input_content)){
+						alert("不输入数字我就爆炸了！");
+						input_value.value = "";
+					}else if(input_content == ""){
+						alert("输入点数字吧！");
+					}
+				}else{
+					//二次验证
+					alert("请输任意数字、中文或英文！");
+				}
+				//提示信息内容复位
+				//span_content.innerHTML = "请输入10-100之间的数字！";				
+			}
+			//左侧出
+			leftOut.onclick = function(){	
+				alert(ul_list.children[0].innerText);
+				ul_list.removeChild(ul_list.children[0]);			
+			}
+			//右侧出
+			rightOut.onclick = function(){	
+				alert(ul_list.children[li_list.length-1].innerText);
+				ul_list.removeChild(ul_list.children[li_list.length-1]);			
+			}
+			//点击指定元素则被点击元素被删除（运用事件委托法）
+			ul_list.onclick = function(ev){
+				var ev = ev || window.event;//
+				var target = ev.target || ev.srcElement;
+				//点击li或者li中的span则删除元素
+				if(target.nodeName.toLowerCase() == 'li'){
+					target.parentNode.removeChild(target);
+				}else if(target.nodeName.toLowerCase() == 'span'){
+					target.parentNode.parentNode.removeChild(target.parentNode);
+				}
+			}
+			
+		}
+	</script>
+</html>
