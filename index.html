@@ -24,7 +24,7 @@
 				<span class="line_right"></span>
 			</div>			
 			<h3 class="input_title">请开始你的表演</h3>
-			<textarea type="text" name="input_add" id="input_add" placeholder="输入范围10-100的数字，队列元素最多60个"/></textarea><span id="prompt">来输入点东西吧！</span>
+			<textarea type="text" name="input_add" id="input_add" placeholder="亲别输入太多内容，方块内容要被挤出来的"/></textarea><span id="prompt">来输入点东西吧！</span>
 		</div>				
 		<!--指令选择部分-->
 		<ul class="control">			
@@ -35,9 +35,9 @@
 		</ul>
 		<!--查询输入部分开始-->
 		<div class="search_frame">
-			<input type="text" name="search_input" class="search_input" placeholder="请输入查询词"/>
+			<input type="text" name="search_input" class="search_input" placeholder="请输入中文英文、字母或其组合的查询词"/>
 		</div>
-		<div class="search_button">开始查询</div>
+		<div id="search_button">开始查询</div>
 		<!--查询输入部分结束-->
 	</body>
 	<script type="text/javascript">
@@ -50,7 +50,8 @@
 			var content_list_length = li_list.length;
 			//获取输入框内容
 			var input_value = document.getElementById("input_add");
-			
+			//获取查询按钮
+			var search_button = document.getElementById("search_button");
 			//获取操作按钮
 			var leftIn = document.getElementsByClassName("control_list")[0];//左侧入
 			var rightIn = document.getElementsByClassName("control_list")[1];//右侧入
@@ -58,8 +59,8 @@
 			var rightOut = document.getElementsByClassName("control_list")[3];//右侧出
 			//获取提示信息
 			var span_content = document.getElementById("prompt");
-			//规则:匹配中文、英文或字母
-			var rule = /[a-zA-Z0-9\u4e00-\u9fa5)]/g;//规则非中文、英文或字母:/[^a-zA-Z0-9\u4e00-\u9fa5]/g
+			//规则:匹配非中文、英文或字母
+			var rule = /[^(a-zA-Z0-9\u4e00-\u9fa5)]/g;//规则中文、英文或字母:/[a-zA-Z0-9\u4e00-\u9fa5]/g
 			//实时监控输入框
 			input_value.addEventListener("input", myFunction);
 			 function myFunction (event) {				 
@@ -73,26 +74,25 @@
 			}		
 			//左侧入
 			leftIn.onclick = function(){
-				//实时获取输入框的值并转化为数字		
-				var input_content = input_value.value;
-				//获取输入框内容长度
+				//剔除输入内容中的间隔符		
+				var input_content =input_value.value.replace(rule,"");
 				if(input_content != ""){
 					var new_item = document.createElement("li");
 					new_item.className = "content_list";
 					new_item.innerHTML = input_content +"<spanclass='content_list_num'></span>";
 					ul_list.insertBefore(new_item,ul_list.childNodes[0]);										
 				}else if(input_content == ""){
-					alert("输入点东西吧！");
+					alert("来输入点东西吧！");
 				}			
 			}
 			//右侧入
 			rightIn.onclick = function(){
-				var input_content = input_value.value;
-				//获取输入框内容长度
+				//剔除输入内容中的间隔符
+				var input_content = input_value.value.replace(rule,"");
 				if(input_content != ""){				
 					ul_list.innerHTML += "<li class='content_list'>" +input_content + "<span class='content_list_num'></span></li>";												
 				}else if(input_content == ""){
-					alert("输入点东西吧！");
+					alert("来输入点东西吧！");
 				}				
 			}
 			//左侧出
@@ -115,6 +115,10 @@
 				}else if(target.nodeName.toLowerCase() == 'span'){
 					target.parentNode.parentNode.removeChild(target.parentNode);
 				}
+			}
+			//查询按钮触发
+			search_button.onclick = function(){
+
 			}
 			
 		}
