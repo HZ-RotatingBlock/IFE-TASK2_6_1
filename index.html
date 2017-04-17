@@ -35,7 +35,7 @@
 		</ul>
 		<!--查询输入部分开始-->
 		<div class="search_frame">
-			<input type="text" name="search_input" class="search_input" placeholder="请输入中文英文、字母或其组合的查询词"/>
+			<input type="text" name="search_input" id="search_input" placeholder="请输入中文英文、字母或其组合的查询词"/>
 		</div>
 		<div id="search_button">开始查询</div>
 		<!--查询输入部分结束-->
@@ -50,8 +50,6 @@
 			var content_list_length = li_list.length;
 			//获取输入框内容
 			var input_value = document.getElementById("input_add");
-			//获取查询按钮
-			var search_button = document.getElementById("search_button");
 			//获取操作按钮
 			var leftIn = document.getElementsByClassName("control_list")[0];//左侧入
 			var rightIn = document.getElementsByClassName("control_list")[1];//右侧入
@@ -61,6 +59,7 @@
 			var span_content = document.getElementById("prompt");
 			//规则:匹配非中文、英文或字母
 			var rule = /[^(a-zA-Z0-9\u4e00-\u9fa5)]/g;//规则中文、英文或字母:/[a-zA-Z0-9\u4e00-\u9fa5]/g
+			var arrData = new Array();
 			//实时监控输入框
 			input_value.addEventListener("input", myFunction);
 			 function myFunction (event) {				 
@@ -74,23 +73,42 @@
 			}		
 			//左侧入
 			leftIn.onclick = function(){
-				//剔除输入内容中的间隔符		
-				var input_content =input_value.value.replace(rule,"");
+				var input_content = input_value.value.trim();
 				if(input_content != ""){
-					var new_item = document.createElement("li");
-					new_item.className = "content_list";
-					new_item.innerHTML = input_content +"<spanclass='content_list_num'></span>";
-					ul_list.insertBefore(new_item,ul_list.childNodes[0]);										
+					var arrWord = input_content.split(/[^0-9a-zA-Z\u4e00-\u9fa5]+/).filter(function(e){
+						if(e != null&&e.length > 0){
+							return true;
+						}else{
+							return false;
+						}
+					});
+					arrData = arrData.concat(arrWord);
+					arrData.map(function(d){
+						var new_item = document.createElement("li");
+						new_item.className = "content_list";
+						new_item.innerHTML += d +"<span class='content_list_num'></span>";
+						ul_list.insertBefore(new_item,ul_list.childNodes[0]);
+					});									
 				}else if(input_content == ""){
 					alert("来输入点东西吧！");
 				}			
 			}
 			//右侧入
 			rightIn.onclick = function(){
-				//剔除输入内容中的间隔符
-				var input_content = input_value.value.replace(rule,"");
+				var input_content = input_value.value.trim();
 				if(input_content != ""){				
-					ul_list.innerHTML += "<li class='content_list'>" +input_content + "<span class='content_list_num'></span></li>";												
+					var arrWord = input_content.split(/[^0-9a-zA-Z\u4e00-\u9fa5]+/).filter(function(e){
+						if(e != null&&e.length > 0){
+							return true;
+						}else{
+							return false;
+						}
+					});
+					arrData = arrData.concat(arrWord);
+					ul_list.innerHTML += arrData.map(function(d){
+						return "<li class='content_list'>" + d + "<span class='content_list_num'></span></li>";
+					}).join("");
+					//ul_list.innerHTML += "<li class='content_list'>" +input_content + "<span class='content_list_num'></span></li>";												
 				}else if(input_content == ""){
 					alert("来输入点东西吧！");
 				}				
