@@ -16,6 +16,7 @@ a{
 	color:#000;
 	text-decoration:none;
 }
+
 /*显示列表部分*/
 .content{
 	position:absolute;
@@ -190,7 +191,7 @@ li.control_list:last-child{
 	margin-right:0;
 }
 li.control_list:hover,li.content_list:hover,
-.search_button:hover{
+#search_button:hover{
 	box-shadow:5px 5px 10px #434A54;
 }
 .button_clickchange{
@@ -215,7 +216,7 @@ li.control_list:hover,li.content_list:hover,
 	background-color:#434A54;
 	border-radius:5px;
 }
-input.search_input{
+#search_input{
 	display:inline-block;
 	position:absolute;
 	top:5px;
@@ -231,7 +232,7 @@ input.search_input{
 	border-radius:3px;
 	outline:none;
 }
-.search_button{
+#search_button{
 	margin:610px auto 10px;
 	width:24%;
 	height:50px;
