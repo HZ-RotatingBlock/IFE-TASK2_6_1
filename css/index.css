@@ -246,3 +246,9 @@ li.control_list:hover,li.content_list:hover,
 	transition:all 0.5s;
 	cursor:pointer;
 }
+/*设置查询匹配内容高亮*/
+span.highlight{
+	font-size:25px;
+	font-weight:700;
+	color:#fff;
+}
