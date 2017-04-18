@@ -152,13 +152,16 @@
 				//实时获取查询词并去除其两端空格
 				var search_value = document.getElementById("search_input").value.trim();
 				if(search_value != null&&search_value.length > 0){
+					//声明新数组并获取当前显示列表各项值
 					var list_arr = new Array();
 					for(var i = 0;i < li_list.length;i++){
 						list_arr.push(li_list[i].innerText);
 					}
+					//将显示列表内容重置，匹配并替换，为关键词设置样式高亮
 					ul_list.innerHTML = list_arr.map(function(d){
 						d = d.replace(new RegExp(search_value,"g"),"<span class='highlight'>" + search_value + "</span>"); 
 						return "<li class='content_list'>" + d + "<span class='content_list_num'></span></li>";
+						//数值之间通过join方法用""链接，否则会出现逗号显示
 					}).join("");					
 				}
 			}
