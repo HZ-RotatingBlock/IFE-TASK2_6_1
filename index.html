@@ -46,6 +46,19 @@
 			//获取显示列表
 			var ul_list = document.getElementsByClassName("content_ul")[0];
 			var li_list = document.getElementsByClassName("content_list");
+			/*测试
+			alert(li_list);
+			var list_arr = new Array();
+			for(var i = 0;i < li_list.length;i++){
+				console.log(li_list[i].innerHTML);
+				list_arr.push(li_list[i].innerHTML);
+			}
+			list_arr.forEach(function(val,index,arr){
+				console.log(val);
+			})
+			
+			*/
+			
 			//获取显示列表的长度		
 			var content_list_length = li_list.length;
 			//获取输入框内容
@@ -136,9 +149,24 @@
 			}
 			//查询按钮触发
 			search_button.onclick = function(){
-
+				//实时获取查询词并去除其两端空格
+				var search_value = document.getElementById("search_input").value.trim();
+				if(search_value != null&&search_value.length > 0){
+					var list_arr = new Array();
+					for(var i = 0;i < li_list.length;i++){
+						list_arr.push(li_list[i].innerText);
+					}
+					ul_list.innerHTML = list_arr.map(function(d){
+						d = d.replace(new RegExp(search_value,"g"),"<span class='highlight'>" + search_value + "</span>"); 
+						return "<li class='content_list'>" + d + "<span class='content_list_num'></span></li>";
+					}).join("");					
+				}
 			}
-			
+			//添加trim()函数，作用为删除字符串左右两端的空格
+			function trim(str){   
+				return str.replace(/(^\s*)|(\s*$)/g, "");   
+			}
 		}
+		
 	</script>
 </html>
